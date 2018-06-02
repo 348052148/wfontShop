@@ -1,0 +1,12 @@
+{
+    "presets": [
+      ["es2015", { "modules": false }]
+    ]
+//    "plugins": [
+//        ["import", {
+//          "libraryName": "vant",
+//          "libraryDirectory": "es",
+//          "style": true
+//        }]
+//    ]
+  }
