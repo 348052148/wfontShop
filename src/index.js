@@ -17,13 +17,14 @@ import Goods from './../view/goods.vue';
 import orderSubmit from './../view/order-submit.vue';
 import addressList from './../view/address-list.vue';
 import address from './../view/address.vue';
+import List from './../view/list.vue';
 
 const routes = [
     { path: '/', component: Home },
     { path: '/cat', component: Cat },
     { path: '/cart', component: Cart },
     { path: '/user', component: User },
-    { path: '/list', component: goodsList },
+    { path: '/list', component: List },
     { path: '/order-list', component: orderSubmit },
     { path: '/goods', component: Goods },
     { path: '/order-submit', component: orderSubmit },
