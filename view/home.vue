@@ -95,56 +95,58 @@
 
               //业务数据
 
-              navBarList:[
-                  {
-                      title:'新品优惠',
-                      pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
-                      url:''
-                  },
-                  {
-                      title:'新品优惠',
-                      pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
-                      url:''
-                  },
-                  {
-                      title:'新品优惠',
-                      pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
-                      url:''
-                  }
-              ],
+            //   navBarList:[
+            //       {
+            //           title:'新品优惠',
+            //           pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+            //           url:''
+            //       },
+            //       {
+            //           title:'新品优惠',
+            //           pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+            //           url:''
+            //       },
+            //       {
+            //           title:'新品优惠',
+            //           pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+            //           url:''
+            //       }
+            //   ],
 
-              blocks:[
-                  {
-                      title:'限时特价',
-                      list:[
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
-                      ]
-                  },
-                  {
-                      title:'第二件半价',
-                      list:[
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
-                      ]
-                  },
-              ],
+            //   blocks:[
+            //       {
+            //           title:'限时特价',
+            //           list:[
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
+            //           ]
+            //       },
+            //       {
+            //           title:'第二件半价',
+            //           list:[
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //               {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
+            //           ]
+            //       },
+            //   ],
 
-              newGoodsList:[
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
-              ]
+            //   newGoodsList:[
+            //       {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //       {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //       {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+            //       {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
+            //   ]
           };
         },
         created(){
-            Req.request('/home',{},function () {
-
+            Req.request('/home',{},(response) => {
+                this.navBarList = response.data.navBarList;
+                this.blocks = response.data.blocks;
+                this.newGoodsList = response.data.newGoodsList;
             });
         },
         methods: {

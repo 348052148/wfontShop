@@ -10,6 +10,7 @@ var Req ={
             baseURL: 'http://localhost:8080/api',
             params: parames,
         }).then(function (response) {
+            console.log(response);
             func(response);
         }).catch(function (error) {
                 console.log(error);
