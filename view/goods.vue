@@ -3,9 +3,9 @@
         <div>
             <div>
                 <van-swipe :autoplay="3000">
-                    <van-swipe-item><img style="width: 100%;height: 250px;" src="http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png"></van-swipe-item>
-                    <van-swipe-item><img style="width: 100%;height: 250px;" src="http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png"></van-swipe-item>
-
+                    <van-swipe-item v-for="pic in goodsInfo.pics">
+                        <img style="width: 100%;height: 250px;" :src="pic">
+                    </van-swipe-item>
                 </van-swipe>
             </div>
             <div>
@@ -14,14 +14,16 @@
                 </van-notice-bar>
             </div>
             <div class="info">
-                <h5>思蕴语露面巾 （颜色随机 毛巾）</h5>
+                <h5>{{goodsInfo.title}}</h5>
+
                 <div class="desc">
-                    <span>￥24.00<del>￥28.00</del></span>
+                    <span>￥{{goodsInfo.price}}<del>￥{{goodsInfo.organalPrice}}</del></span>
                     <ul>
-                        <li>销量：6条</li>
-                        <li>规格：条</li>
+                        <li>销量：{{goodsInfo.saleVolume}} {{goodsInfo.specifTitle}}</li>
+                        <li>规格：{{goodsInfo.specifTitle}}</li>
                     </ul>
                 </div>
+
                 <span class="DS"></span>
                 <div class="tags">
                     <ul>
@@ -78,8 +80,81 @@
 
 <script>
     export default {
+        created(){
+            this.sku ={
+                tree: [
+                    {
+                        k: '规格', // skuKeyName：规格类目名称
+                        v: [
+
+                        ],
+                        k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+                    }
+                ],
+                list: [
+
+                ],
+
+                price: '24.00', // 默认价格（单位元）
+                stock_num: 227, // 商品总库存
+                collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
+                none_sku: false, // 是否无规格商品
+
+                hide_stock: false // 是否隐藏剩余库存
+            };
+
+            //
+            for (let i = 0; i < this.goodsInfo.specif.length ; i++) {
+                let specif = this.goodsInfo.specif[i];
+                this.sku.tree[0].v.push({
+                    id:specif.units,
+                    name:specif.title+'('+specif.units+')',
+                    imgUrl:specif.pic
+                });
+
+                this.sku.list.push({
+                    id:this.goodsInfo.sku,
+                    price:specif.price,
+                    s1:specif.units,
+                    stock_num:100
+                });
+            }
+
+            //
+            this.goods = {
+                // 商品标题
+                title: this.goodsInfo.title,
+                // 默认商品 sku 缩略图
+                picture: this.goodsInfo.pic
+            }
+
+
+
+
+        },
         data(){
           return {
+              //业务数据
+              goodsInfo:{
+                  title: '思蕴语露面巾 （颜色随机 毛巾）',
+                  sku:'20180607',
+                  price:'24.00',
+                  organalPrice:'28.00',
+                  pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+                  pics:[
+                      'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+                      'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+                      'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png'
+                  ],
+                  units:1,
+                  saleVolume:100,
+                  specifTitle:'瓶',
+                  specif:[
+                      {units:1,title:'瓶',pic:'https://img.yzcdn.cn/1.jpg',price:1},
+                      {units:12,title:'件',pic:'https://img.yzcdn.cn/2.jpg',price:12}
+                  ],
+              },
+
               skuModel:false,
               goods: {
                   // 商品标题
