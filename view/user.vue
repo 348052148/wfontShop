@@ -62,11 +62,20 @@
             </van-cell-group>
 
         </div>
+
+
+
+
+        <Tabbar/>
     </div>
 </template>
 
 <script>
+    import Tabbar from './tabbar.vue';
     export default {
+        components: {
+            Tabbar
+        },
         name: 'app',
         data:function(){
             return {

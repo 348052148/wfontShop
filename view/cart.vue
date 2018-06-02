@@ -7,8 +7,6 @@
                     left-text="返回"
                     left-arrow
                     :fixed="true"
-                    @click-left="onClickLeft"
-                    @click-right="onClickRight"
             />
         </div>
 
@@ -108,11 +106,18 @@
     您的收货地址不支持同城送, <span>修改地址</span>
   </span>
         </van-submit-bar>
+
+
+        <Tabbar/>
     </div>
 </template>
 
 <script>
+    import Tabbar from './tabbar.vue';
     export default {
+        components: {
+            Tabbar
+        },
         data(){
           return {
               checked:false
@@ -134,6 +139,9 @@
                         });
                         break;
                 }
+            },
+            onSubmit(){
+
             }
         }
     }
