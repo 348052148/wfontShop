@@ -21,6 +21,8 @@
                 <van-cell title="我的订单" icon="location" value="所有订单" is-link />
                 <span class="DS"></span>
                 <van-row>
+
+                    <router-link :to="{ path: '/order-list', query: { status: '1' }}">
                     <van-col span="6">
                         <div class="icon">
                             <van-icon name="pending-payment"  info="5" />
@@ -28,27 +30,46 @@
 
                         待付款
                     </van-col>
+                    </router-link>
+
+
+                    <router-link :to="{ path: '/order-list', query: { status: '2' }}">
                     <van-col span="6">
                         <div class="icon">
                         <van-icon name="pending-deliver" />
                         </div>
                         待发货</van-col>
+
+                    </router-link>
+
+                    <router-link :to="{ path: '/order-list', query: { status: '3' }}">
                     <van-col span="6">
                         <div class="icon">
                         <van-icon name="tosend" />
                         </div>
                         待收货</van-col>
+
+                    </router-link>
+
+                    <router-link :to="{ path: '/order-list', query: { status: '4' }}">
                     <van-col span="6">
                         <div class="icon">
                         <van-icon name="pending-orders" />
                         </div>
                         待评价</van-col>
+
+                    </router-link>
+
+
                 </van-row>
             </div>
 
             <van-cell-group>
 
+                <router-link :to="{ path: '/address-list', query: { status: '1' }}">
                 <van-cell title="地址" icon="location" is-link />
+                </router-link>
+
                 <span class="DS"></span>
                 <van-cell value="优惠" icon="shop" is-link>
                     <template slot="title">
@@ -62,11 +83,20 @@
             </van-cell-group>
 
         </div>
+
+
+
+
+        <Tabbar/>
     </div>
 </template>
 
 <script>
+    import Tabbar from './tabbar.vue';
     export default {
+        components: {
+            Tabbar
+        },
         name: 'app',
         data:function(){
             return {

@@ -1,16 +1,6 @@
 <template>
 
     <div class="cart">
-        <div>
-            <van-nav-bar
-                    title="购物车"
-                    left-text="返回"
-                    left-arrow
-                    :fixed="true"
-                    @click-left="onClickLeft"
-                    @click-right="onClickRight"
-            />
-        </div>
 
         <div class="cartTop">
             <van-icon name="shopping-cart" />
@@ -108,11 +98,18 @@
     您的收货地址不支持同城送, <span>修改地址</span>
   </span>
         </van-submit-bar>
+
+
+        <Tabbar/>
     </div>
 </template>
 
 <script>
+    import Tabbar from './tabbar.vue';
     export default {
+        components: {
+            Tabbar
+        },
         data(){
           return {
               checked:false
@@ -134,6 +131,9 @@
                         });
                         break;
                 }
+            },
+            onSubmit(){
+
             }
         }
     }
@@ -156,7 +156,6 @@
         background: #fff;
         font-size: 12px;
         line-height: 50px;
-        margin-top: 47px;
     }
     .cartTop .van-icon{
         width: 40px;

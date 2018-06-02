@@ -3,13 +3,6 @@
     <div>
         
         <router-view/>
-
-        <van-tabbar @change="tabSelect" v-model="active">
-            <van-tabbar-item icon="home">首页</van-tabbar-item>
-            <van-tabbar-item icon="more-o" >分类</van-tabbar-item>
-            <van-tabbar-item icon="cart" info="5">购物车</van-tabbar-item>
-            <van-tabbar-item icon="contact" info="20">个人中心</van-tabbar-item>
-        </van-tabbar>
         
     </div>
 </template>
