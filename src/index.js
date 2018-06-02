@@ -15,6 +15,7 @@ import Cart from './../view/cart.vue';
 import User from './../view/user.vue';
 import Goods from './../view/goods.vue';
 import orderSubmit from './../view/order-submit.vue';
+import orderList from './../view/orderlist.vue';
 import addressList from './../view/address-list.vue';
 import address from './../view/address.vue';
 import List from './../view/list.vue';
@@ -25,7 +26,7 @@ const routes = [
     { path: '/cart', component: Cart },
     { path: '/user', component: User },
     { path: '/list', component: List },
-    { path: '/order-list', component: orderSubmit },
+    { path: '/order-list', component: orderList },
     { path: '/goods', component: Goods },
     { path: '/order-submit', component: orderSubmit },
     { path: '/address-list', component: addressList },

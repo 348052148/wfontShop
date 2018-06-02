@@ -1,101 +1,45 @@
 <template>
     <div>
         <van-tabs v-model="active">
-            <van-tab :title="'所有'">
-            <div class="order-content">
+            <van-tab v-for="item in type_item" :title="item">
+
+
+            <div v-for="order in orderList" class="order-content">
                 <div class="order-top">
-                    <span class="order-code">订单号：ML18005211</span>
-                    <span class="order-status">已取消</span>
+                    <span class="order-code">订单号：{{order.orderCode}}</span>
+                    <span class="order-status">{{order.orderStatus}}</span>
                     <div style="clear:both"></div>
                 </div>
-                <div class="order-product">
-                    <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp">
+
+                <div v-for="goods in order.goodsList" class="order-product">
+                    <img class="pic-url" :src="goods.pic">
                     <div class="product-text">
-                        <span>可口可乐美国鹰爪功能饮料330ml</span>
-                        <span class="specification">规格：片</span>
+                        <span>{{goods.title}}</span>
+                        <span class="specification">规格：{{goods.specif.title}}</span>
                         <div class="product-price">
-                            <span><strong style="color:#ff4544;">￥6</strong>X1</span><span style="color:#ff4544;float:right;">小计：￥6</span>
+                            <span><strong style="color:#ff4544;">￥{{goods.price}}</strong>X{{goods.num}}</span>
+                            <span style="color:#ff4544;float:right;">小计：￥{{goods.total}}</span>
                         </div>
                     </div>
                     <div style="clear:both"></div>
                 </div>
+
                 <div class="action">
-                    <span>合计：￥1</span>
+                    <span>合计：￥{{order.price}}</span>
                     <div class="order-action" style="float:right;">
                         <van-button type="default" size='small'>再次购买</van-button>
                     </div>
-                    
+
                 </div>
                 <div style="clear:both"></div>
             </div>
 
-            <div class="order-content">
-                <div class="order-top">
-                    <span class="order-code">订单号：ML18005211</span>
-                    <span class="order-status">已取消</span>
-                    <div style="clear:both"></div>
-                </div>
-                <div class="order-product">
-                    <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp">
-                    <div class="product-text">
-                        <span>可口可乐美国鹰爪功能饮料330ml</span>
-                        <span class="specification">规格：片</span>
-                        <div class="product-price">
-                            <span><strong style="color:#ff4544;">￥6</strong>X1</span><span style="color:#ff4544;float:right;">小计：￥6</span>
-                        </div>
-                    </div>
-                    <div style="clear:both"></div>
-                </div>
-                <div class="action">
-                    <span>合计：￥1</span>
-                    <div class="order-action" style="float:right;">
-                        <van-button type="default" size='small'>再次购买</van-button>
-                    </div>
-                    
-                </div>
-                <div style="clear:both"></div>
-            </div>
 
-            <div class="order-content">
-                <div class="order-top">
-                    <span class="order-code">订单号：ML18005211</span>
-                    <span class="order-status">已取消</span>
-                    <div style="clear:both"></div>
-                </div>
-                <div class="order-product">
-                    <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp">
-                    <div class="product-text">
-                        <span>可口可乐美国鹰爪功能饮料330ml</span>
-                        <span class="specification">规格：片</span>
-                        <div class="product-price">
-                            <span><strong style="color:#ff4544;">￥6</strong>X1</span><span style="color:#ff4544;float:right;">小计：￥6</span>
-                        </div>
-                    </div>
-                    <div style="clear:both"></div>
-                </div>
-                <div class="action">
-                    <span>合计：￥1</span>
-                    <div class="order-action" style="float:right;">
-                        <van-button type="default" size='small'>再次购买</van-button>
-                    </div>
-                    
-                </div>
-                <div style="clear:both"></div>
-            </div>
             <div class="bottom"></div>
+
+
             </van-tab>
-            <van-tab :title="'待付款'">
-            内容 11
-            </van-tab>
-            <van-tab :title="'待发货'">
-            内容 11
-            </van-tab>
-            <van-tab :title="'待收货'">
-            内容 11
-            </van-tab>
-            <van-tab :title="'待评价'">
-            内容 11
-            </van-tab>
+
         </van-tabs>
     </div>
     
@@ -105,7 +49,56 @@ export default {
     data() {
     return {
         type_item:['所有','待付款','待发货','待收货','待评价'],
-      active: 0
+        active: 0,
+        orderList:[
+            {
+                address:{
+                    name:'~~~~~',
+                    tel:'18523922709',
+                    address:'重庆市渝北区环山国际'
+                },
+                sendType:[
+                    {title:'18:30 - 19:00',type:1,time:1232321},
+                    {title:'18:30 - 19:00',type:1,time:1232321},
+                    {title:'18:30 - 19:00',type:1,time:1232321}
+                ],
+                payType:1,
+                goodsList:[
+                    {
+                        title:'农夫山泉550ml',
+                        pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                        specif:{title:'瓶',units:1},
+                        price:2.5,
+                        num:2,
+                        total:5
+                    },
+                    {
+                        title:'农夫山泉550ml',
+                        pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                        specif:{title:'瓶',units:1},
+                        price:2.5,
+                        num:2,
+                        total:5
+                    },
+                    {
+                        title:'农夫山泉550ml',
+                        pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                        specif:{title:'瓶',units:1},
+                        price:2.5,
+                        num:2,
+                        total:5
+                    }
+                ],
+                fList:[
+                    {title:'收取运费' , price:2}
+                ],
+                price:1700,
+                remark:'',
+                orderCode:'JXHY10923213',
+                orderStatus:'已取消'
+
+            }
+        ]
     };
   }
 }
