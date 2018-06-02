@@ -1,5 +1,13 @@
 <template>
-    <div>
+    <div class="orderList">
+        <van-nav-bar
+                title="标题"
+                left-text="返回"
+                left-arrow
+                :fixed="true"
+                @click-left="onClickLeft"
+        />
+
         <van-tabs v-model="active">
             <van-tab v-for="item in type_item" :title="item">
 
@@ -7,7 +15,7 @@
             <div v-for="order in orderList" class="order-content">
                 <div class="order-top">
                     <span class="order-code">订单号：{{order.orderCode}}</span>
-                    <span class="order-status">{{order.orderStatus}}</span>
+                    <span class="order-status1">{{order.orderStatus}}</span>
                     <div style="clear:both"></div>
                 </div>
 
@@ -100,10 +108,21 @@ export default {
             }
         ]
     };
-  }
+  },
+    methods:{
+        onClickLeft(){
+            this.$router.back();
+        }
+    }
 }
 </script>
 <style>
+    .orderList{
+
+    }
+ .orderList .van-tabs{
+    margin-top: 45px;
+ }
 .order-content{
     background: #fff;
     padding: 10px;
@@ -115,7 +134,7 @@ export default {
     border-bottom: solid 0.5px rgb(212, 209, 209);
     font-size: 14px;
 }
-.order-top .order-status{
+.order-top .order-status1{
     float: right;
 }
 .order-product{

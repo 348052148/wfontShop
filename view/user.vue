@@ -25,7 +25,7 @@
                     <router-link :to="{ path: '/order-list', query: { status: '1' }}">
                     <van-col span="6">
                         <div class="icon">
-                            <van-icon name="pending-payment"  info="5" />
+                            <van-icon name="pending-payment"  :info="user.dpay" />
                         </div>
 
                         待付款
@@ -36,7 +36,7 @@
                     <router-link :to="{ path: '/order-list', query: { status: '2' }}">
                     <van-col span="6">
                         <div class="icon">
-                        <van-icon name="pending-deliver" />
+                        <van-icon name="pending-deliver" :info="user.df" />
                         </div>
                         待发货</van-col>
 
@@ -45,7 +45,7 @@
                     <router-link :to="{ path: '/order-list', query: { status: '3' }}">
                     <van-col span="6">
                         <div class="icon">
-                        <van-icon name="tosend" />
+                        <van-icon name="tosend" :info="user.ds" />
                         </div>
                         待收货</van-col>
 
@@ -54,7 +54,7 @@
                     <router-link :to="{ path: '/order-list', query: { status: '4' }}">
                     <van-col span="6">
                         <div class="icon">
-                        <van-icon name="pending-orders" />
+                        <van-icon name="pending-orders" :info="user.dp" />
                         </div>
                         待评价</van-col>
 
@@ -100,7 +100,15 @@
         name: 'app',
         data:function(){
             return {
-                user:{nickname:'未登录',tourl:"/login"}
+                user:{
+                    nickname:'未登录',
+                    tourl:"/login",
+                    dpay:0,
+                    df:0,
+                    ds:0,
+                    dp:5,
+                },
+
             };
         },
         created(){

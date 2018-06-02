@@ -15,7 +15,6 @@ import Cart from './../view/cart.vue';
 import User from './../view/user.vue';
 import Goods from './../view/goods.vue';
 import orderSubmit from './../view/order-submit.vue';
-import orderList from './../view/orderlist.vue';
 import addressList from './../view/address-list.vue';
 import address from './../view/address.vue';
 import orderList from './../view/orderlist.vue';
