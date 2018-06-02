@@ -3,9 +3,9 @@
         <van-nav-bar
                 title="标题"
                 left-text="返回"
-                right-text="按钮"
                 left-arrow
                 :fixed="true"
+                @click-left="onClickLeft"
         />
         <div class="list">
             <van-address-list
@@ -43,10 +43,13 @@
 
         methods: {
             onAdd() {
-                Toast('新增收货地址');
+                this.$router.push({path:'/address-add',query:{}});
             },
             onEdit(item, index) {
-                Toast('编辑收货地址:' + index);
+                this.$router.push({path:'/address-edit',query:{id:item.id}});
+            },
+            onClickLeft(){
+                this.$router.back();
             }
         }
     }

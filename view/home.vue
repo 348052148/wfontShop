@@ -44,26 +44,39 @@
             <div class="mainTitle">限时特价</div>
             <div class="rongqi">
                 <van-row>
+
                     <van-col span="6">
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
                             <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
                             <span class="title">统一鲜橙多</span>
                             <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
+
                     <van-col span="6">
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
                             <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
                             <span class="title">统一鲜橙多</span>
                             <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
+
                     <van-col span="6">
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
                             <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
                             <span class="title">统一鲜橙多</span>
                             <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
+
                     <van-col span="6">
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
                             <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
                             <span class="title">统一鲜橙多</span>
                             <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
+
                 </van-row>
             </div>
         </div>
@@ -74,24 +87,35 @@
             <div class="rongqi">
                 <van-row>
                     <van-col span="6">
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
                         <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
                         <span class="title">统一鲜橙多</span>
                         <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
+
                     <van-col span="6">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">统一鲜橙多</span>
-                        <span class="amount">￥ 2.5</span>
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
+                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
+                            <span class="title">统一鲜橙多</span>
+                            <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
+
                     <van-col span="6">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">统一鲜橙多</span>
-                        <span class="amount">￥ 2.5</span>
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
+                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
+                            <span class="title">统一鲜橙多</span>
+                            <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
+
                     <van-col span="6">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">统一鲜橙多</span>
-                        <span class="amount">￥ 2.5</span>
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
+                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
+                            <span class="title">统一鲜橙多</span>
+                            <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
                 </van-row>
             </div>
@@ -109,9 +133,11 @@
                         loading-text="正在努力中"
                 >
                     <van-col  v-for="item in list" :key="item"  span="8">
+                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
                         <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
                         <span class="title">统一鲜橙多</span>
                         <span class="amount">￥ 2.5</span>
+                        </router-link>
                     </van-col>
                 </van-list>
                 </van-row>

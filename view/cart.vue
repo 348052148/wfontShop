@@ -1,14 +1,6 @@
 <template>
 
     <div class="cart">
-        <div>
-            <van-nav-bar
-                    title="购物车"
-                    left-text="返回"
-                    left-arrow
-                    :fixed="true"
-            />
-        </div>
 
         <div class="cartTop">
             <van-icon name="shopping-cart" />
@@ -164,7 +156,6 @@
         background: #fff;
         font-size: 12px;
         line-height: 50px;
-        margin-top: 47px;
     }
     .cartTop .van-icon{
         width: 40px;
