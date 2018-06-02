@@ -12,69 +12,21 @@
 
             <div class="rightContent">
                 <!--<div class="subTitle">白酒</div>-->
-                <van-cell title="白酒" value="更多" is-link />
-                <van-row>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">瓶装白酒</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">精装白酒</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">保健酒</span>
-                    </van-col>
-                </van-row>
+                <template v-for="category in currentData.list">
+                    <van-cell  :title="category.title" value="更多" is-link />
+                    <van-row>
+
+                        <van-col v-for="cate in category.list" span="8">
+                            <router-link :to="{ path: '/list', query: { id: 1 }}">
+                                <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
+                                <span class="title">{{cate.title}}</span>
+                            </router-link>
+                        </van-col>
+
+                    </van-row>
+                </template>
 
 
-                <van-cell title="饮料" value="更多" is-link />
-                <van-row>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">即饮饮料</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">功能咖啡</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">茶饮料</span>
-                    </van-col>
-                </van-row>
-                <van-row>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">运动饮料</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">碳酸饮料</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">饮用水</span>
-                    </van-col>
-                </van-row>
-
-
-                <van-cell title="啤酒" value="更多" is-link />
-                <van-row>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">瓶装白酒</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">精装白酒</span>
-                    </van-col>
-                    <van-col span="8">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">保健酒</span>
-                    </van-col>
-                </van-row>
             </div>
         </div>
 
@@ -97,9 +49,56 @@
                     {
                         text: '烟酒饮料',
 
+                        list:[
+                            {
+                                title:'白酒',
+                                pic:'',
+                                list:[
+                                    {title:'瓶装白酒',pic:''},
+                                    {title:'精装白酒',pic:''},
+                                    {title:'保健酒',pic:''}
+                                ]
+                            },
+                            {
+                                title:'饮料',
+                                pic:'',
+                                list:[
+                                    {title:'即饮饮料',pic:''},
+                                    {title:'功能咖啡',pic:''},
+                                    {title:'茶饮料',pic:''},
+                                    {title:'运动饮料',pic:''},
+                                    {title:'碳酸饮料',pic:''},
+                                    {title:'茶饮料',pic:''},
+                                ]
+                            }
+                        ]
+
                     },
                     {
                         text:'洗护用品',
+                        list:[
+                            {
+                                title:'洗澡',
+                                pic:'',
+                                list:[
+                                    {title:'瓶装白酒',pic:''},
+                                    {title:'精装白酒',pic:''},
+                                    {title:'保健酒',pic:''}
+                                ]
+                            },
+                            {
+                                title:'饮料',
+                                pic:'',
+                                list:[
+                                    {title:'即饮饮料',pic:''},
+                                    {title:'功能咖啡',pic:''},
+                                    {title:'茶饮料',pic:''},
+                                    {title:'运动饮料',pic:''},
+                                    {title:'碳酸饮料',pic:''},
+                                    {title:'茶饮料',pic:''},
+                                ]
+                            }
+                        ]
                     },
                     {
                         text:'休闲零食'
@@ -123,12 +122,17 @@
                 // 左侧高亮元素的index
                 mainActiveIndex: 0,
                 // 被选中元素的id
-                activeId: 1001
+                activeId: 1001,
+                currentData:[]
             };
+        },
+        created(){
+            this.currentData = this.items[this.index];
         },
         methods: {
             onItemClick(index) {
                 this.index = index;
+                this.currentData = this.items[this.index];
             },
             active(index){
                 if(this.index == index)
@@ -150,6 +154,7 @@
         border-top: aliceblue solid 1px;
         display: inline-block;
         width: 100%;
+        margin-bottom: 50px;
     }
     .category .leftNav{
         width: 25%;

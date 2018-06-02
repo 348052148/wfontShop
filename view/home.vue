@@ -62,7 +62,7 @@
                         :offset="10"
                         loading-text="正在努力中"
                 >
-                    <van-col  v-for="goods in newGoodsList" :key="item"  span="8">
+                    <van-col  v-for="goods in newGoodsList"  span="8">
                         <router-link :to="{ path: '/goods', query: { sku: goods.sku }}">
                         <img :src="goods.pic"/>
                         <span class="title">{{goods.title}}</span>

@@ -19,6 +19,7 @@ import addressList from './../view/address-list.vue';
 import address from './../view/address.vue';
 import orderList from './../view/orderlist.vue';
 import orderDetail from './../view/order-detail.vue';
+import List from './../view/list.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -26,6 +27,8 @@ const routes = [
     { path: '/cart', component: Cart },
     { path: '/user', component: User },
     { path: '/orderlist', component: orderList },
+    { path: '/list', component: List },
+    { path: '/order-list', component: orderSubmit },
     { path: '/goods', component: Goods },
     { path: '/order-submit', component: orderSubmit },
     { path: '/address-list', component: addressList },

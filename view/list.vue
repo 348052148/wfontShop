@@ -1,63 +1,28 @@
 <template>
         <div>
+            <van-nav-bar
+                    title="商品列表"
+                    left-text="返回"
+                    left-arrow
+                    :fixed="true"
+                    @click-left="onClickLeft"
+            />
             <div class="choose-title" flex>
                 <div class="item">综合</div>
                 <div class="item">价格</div>
                 <div class="item">销量</div>
             </div>
             <div class="product-list">
-                <div class="list">
-                    <div class="left">
-                        <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div class="right">
-                         <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div style="clear:both;"></div>
-                </div>
-                <div class="list">
-                    <div class="left">
-                        <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div class="right">
-                         <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div style="clear:both;"></div>
-                </div>
-                <div class="list">
-                    <div class="left">
-                        <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div class="right">
-                         <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div style="clear:both;"></div>
-                </div>
-                <div class="list">
-                    <div class="left">
-                        <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div class="right">
-                         <img class="pic-url" src="https://img14.360buyimg.com/n2/jfs/t17815/197/927690859/701843/49879888/5ab2ff90N30de3950.jpg!q80.webp"/>
-                        <span class="pic-title">马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）</span>
-                        <span class="pic-price">￥100</span>
-                    </div>
-                    <div style="clear:both;"></div>
-                </div>
+                <van-row>
+
+                    <van-col v-for="goods in goodsList" span="12">
+                            <img class="pic-url" :src="goods.pic"/>
+                            <span class="pic-title">{{goods.title}}</span>
+                            <span class="pic-price">￥{{goods.price}}</span>
+                    </van-col>
+
+                </van-row>
+
             </div>
             <div class="bottom"></div>
         </div>
@@ -65,7 +30,43 @@
 
 <script>
 export default {
-    
+    data(){
+        return {
+            //业务数据
+            goodsList:[
+                {
+                    title:'马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）',
+                    price:100,
+                    pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'
+                },
+                {
+                    title:'马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）',
+                    price:100,
+                    pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'
+                },
+                {
+                    title:'马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）',
+                    price:100,
+                    pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'
+                },
+                {
+                    title:'马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）',
+                    price:100,
+                    pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'
+                },
+                {
+                    title:'马来西亚原装进口 过山车(GOTOGO)麦糯糯浓醇巧克力味蛋糕卷 480克（20克×24）',
+                    price:100,
+                    pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'
+                }
+            ]
+        }
+    },
+    methods:{
+        onClickLeft(){
+            this.$router.back();
+        }
+    }
 }
 </script>
 
@@ -82,6 +83,7 @@ export default {
     height:60px;
     border-bottom:solid 1px #e2d9d9;
     border-top: solid 1px #e2d9d9;
+    margin-top: 45px;
 }
 .item{
     display: inline-block;
@@ -98,23 +100,14 @@ export default {
     position: relative;
     width: 100%;
     height: auto;
-    margin-top: 60px;
+    margin-top: 105px;
 }
-.right,.left{
-    width: 49%;
-    height: auto;
-    text-align: center;
+
+.product-list .van-col{
     background: #fff;
-    margin-bottom: 5px;
+    text-align: center;
 }
-.right{
-   
-    float: right;
-    
-}
-.left{
-    float: left;
-}
+
 .pic-url{
     width: 160px;
     height: 160px;

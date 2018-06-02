@@ -11,7 +11,7 @@
         />
 
         <div class="address">
-            <van-cell title="~~~~~" value="18523922709" label="收货地址：重庆市渝北区环山国际" is-link />
+            <van-cell :title="orderInfo.address.name" :value="orderInfo.address.tel" :label="'收货地址：'+orderInfo.address.address" is-link />
         </div>
 
         <van-cell title="预约送达时间" is-link value="下单后半小时"/>
@@ -21,48 +21,26 @@
         <span class="fill"></span>
 
         <ul class="goodsLst">
-            <li>
+            <li v-for="goods in orderInfo.goodsList">
                 <div class="pic">
-                    <img style="width: 60px;height: 60px;" src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
+                    <img style="width: 60px;height: 60px;" :src="goods.pic"/>
                 </div>
                 <div class="info">
-                    <div class="title">农夫山泉550ml</div>
-                    <span class="specif">规格：瓶</span>
-                    <span class="amount">￥4 <span style="color: #666;">x1</span> <span class="total">￥4</span></span>
-                </div>
-            </li>
-
-            <li>
-                <div class="pic">
-                    <img style="width: 60px;height: 60px;" src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                </div>
-                <div class="info">
-                    <div class="title">农夫山泉550ml</div>
-                    <span class="specif">规格：瓶</span>
-                    <span class="amount">￥4 <span style="color: #666;">x1</span> <span class="total">￥4</span></span>
-                </div>
-            </li>
-
-            <li>
-                <div class="pic">
-                    <img style="width: 60px;height: 60px;" src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                </div>
-                <div class="info">
-                    <div class="title">农夫山泉550ml</div>
-                    <span class="specif">规格：瓶</span>
-                    <span class="amount">￥4 <span style="color: #666;">x1</span> <span class="total">￥4</span></span>
+                    <div class="title">{{goods.title}}</div>
+                    <span class="specif">规格：{{goods.specif.title}}</span>
+                    <span class="amount">￥{{goods.price}} <span style="color: #666;">x{{goods.num}}</span> <span class="total">￥{{goods.total}}</span></span>
                 </div>
             </li>
         </ul>
 
         <span class="fill"></span>
 
-        <van-cell title="收取运费"  value="￥2"/>
+        <van-cell v-for="f in orderInfo.fList" :title="f.title"  :value="'￥'+f.price"/>
 
         <span class="fill"></span>
         <van-cell-group>
             <van-field
-                    v-model="remark"
+                    v-model="orderInfo.remark"
                     label="留言"
                     type="textarea"
                     placeholder="请输入留言"
@@ -81,7 +59,7 @@
 
     </div>
         <van-submit-bar
-                :price="3050"
+                :price="orderInfo.price"
                 button-text="提交订单"
                 @submit="onSubmit"
         />
@@ -94,7 +72,54 @@
         data(){
             return {
                 isShow:false,
-                remark:''
+                remark:'',
+                //业务数据
+                orderInfo:{
+                    address:{
+                        name:'~~~~~',
+                        tel:'18523922709',
+                        address:'重庆市渝北区环山国际'
+                    },
+                    sendType:[
+                        {title:'18:30 - 19:00',type:1,time:1232321},
+                        {title:'18:30 - 19:00',type:1,time:1232321},
+                        {title:'18:30 - 19:00',type:1,time:1232321}
+                    ],
+                    payType:1,
+                    goodsList:[
+                        {
+                            title:'农夫山泉550ml',
+                            pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                            specif:{title:'瓶',units:1},
+                            price:2.5,
+                            num:2,
+                            total:5
+                        },
+                        {
+                            title:'农夫山泉550ml',
+                            pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                            specif:{title:'瓶',units:1},
+                            price:2.5,
+                            num:2,
+                            total:5
+                        },
+                        {
+                            title:'农夫山泉550ml',
+                            pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                            specif:{title:'瓶',units:1},
+                            price:2.5,
+                            num:2,
+                            total:5
+                        }
+                    ],
+                    fList:[
+                        {title:'收取运费' , price:2}
+                    ],
+                    price:1700,
+                    remark:'',
+                    orderCode:'JXHY10923213'
+
+                }
             }
         }
     }
