@@ -6,14 +6,8 @@
         </div>
         <div>
             <van-swipe :autoplay="3000">
-                <van-swipe-item>
-                    <img style="width: 100%;height: 120px;" src="http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png">
-                </van-swipe-item>
-                <van-swipe-item>
-                    <img style="width: 100%;height: 120px;"  src="http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png">
-                </van-swipe-item>
-                <van-swipe-item>
-                    <img style="width: 100%;height: 120px;"  src="http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png">
+                <van-swipe-item v-for="navBar in navBarList">
+                    <img style="width: 100%;height: 120px;" :src="navBar.pic">
                 </van-swipe-item>
             </van-swipe>
         </div>
@@ -40,81 +34,17 @@
                 新开业一家店铺
             </van-notice-bar>
         </div>
-        <div class="section">
-            <div class="mainTitle">限时特价</div>
+
+        <div v-for="block in blocks" class="section">
+            <div class="mainTitle">{{block.title}}</div>
             <div class="rongqi">
                 <van-row>
 
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                            <span class="title">统一鲜橙多</span>
-                            <span class="amount">￥ 2.5</span>
-                        </router-link>
-                    </van-col>
-
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                            <span class="title">统一鲜橙多</span>
-                            <span class="amount">￥ 2.5</span>
-                        </router-link>
-                    </van-col>
-
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                            <span class="title">统一鲜橙多</span>
-                            <span class="amount">￥ 2.5</span>
-                        </router-link>
-                    </van-col>
-
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                            <span class="title">统一鲜橙多</span>
-                            <span class="amount">￥ 2.5</span>
-                        </router-link>
-                    </van-col>
-
-                </van-row>
-            </div>
-        </div>
-
-
-        <div class="section">
-            <div class="mainTitle">第二件半价</div>
-            <div class="rongqi">
-                <van-row>
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">统一鲜橙多</span>
-                        <span class="amount">￥ 2.5</span>
-                        </router-link>
-                    </van-col>
-
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                            <span class="title">统一鲜橙多</span>
-                            <span class="amount">￥ 2.5</span>
-                        </router-link>
-                    </van-col>
-
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                            <span class="title">统一鲜橙多</span>
-                            <span class="amount">￥ 2.5</span>
-                        </router-link>
-                    </van-col>
-
-                    <van-col span="6">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                            <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                            <span class="title">统一鲜橙多</span>
-                            <span class="amount">￥ 2.5</span>
+                    <van-col v-for="goods in block.list"  span="6">
+                        <router-link :to="{ path: '/goods', query: { sku: goods.sku }}">
+                            <img :src="goods.pic"/>
+                            <span class="title">{{goods.title}}</span>
+                            <span class="amount">￥ {{goods.price}}</span>
                         </router-link>
                     </van-col>
                 </van-row>
@@ -132,11 +62,11 @@
                         :offset="10"
                         loading-text="正在努力中"
                 >
-                    <van-col  v-for="item in list" :key="item"  span="8">
-                        <router-link :to="{ path: '/goods', query: { sku: '1' }}">
-                        <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                        <span class="title">统一鲜橙多</span>
-                        <span class="amount">￥ 2.5</span>
+                    <van-col  v-for="goods in newGoodsList" :key="item"  span="8">
+                        <router-link :to="{ path: '/goods', query: { sku: goods.sku }}">
+                        <img :src="goods.pic"/>
+                        <span class="title">{{goods.title}}</span>
+                        <span class="amount">￥ {{goods.price}}</span>
                         </router-link>
                     </van-col>
                 </van-list>
@@ -150,6 +80,7 @@
 
 <script>
     import Tabbar from './tabbar.vue';
+    import Req from './../src/req.js';
     export default {
         components: {
             Tabbar
@@ -160,18 +91,71 @@
               search:'',
               list: [],
               loading: false,
-              finished: false
+              finished: false,
+
+              //业务数据
+
+              navBarList:[
+                  {
+                      title:'新品优惠',
+                      pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+                      url:''
+                  },
+                  {
+                      title:'新品优惠',
+                      pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+                      url:''
+                  },
+                  {
+                      title:'新品优惠',
+                      pic:'http://img.zcool.cn/community/019f4e57207bc432f875a3990cbb6b.PNG@1280w_1l_2o_100sh.png',
+                      url:''
+                  }
+              ],
+
+              blocks:[
+                  {
+                      title:'限时特价',
+                      list:[
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
+                      ]
+                  },
+                  {
+                      title:'第二件半价',
+                      list:[
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                          {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
+                      ]
+                  },
+              ],
+
+              newGoodsList:[
+                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
+              ]
           };
+        },
+        created(){
+            Req.request('/home',{},function () {
+
+            });
         },
         methods: {
             onLoad() {
                 setTimeout(() => {
                     for (let i = 0; i < 10; i++) {
-                        this.list.push(this.list.length + 1);
+                        this.newGoodsList.push( {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'});
                     }
                     this.loading = false;
 
-                    if (this.list.length >= 40) {
+                    if (this.newGoodsList.length >= 40) {
                         this.finished = true;
                     }
                 }, 500);
