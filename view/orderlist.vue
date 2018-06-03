@@ -53,6 +53,7 @@
     
 </template>
 <script>
+    import Req from './../src/req.js';
 export default {
     data() {
     return {
@@ -109,6 +110,11 @@ export default {
         ]
     };
   },
+    created(){
+        Req.request('/orderList',{},(response) => {
+            this.orderList = response.data.list;
+        });
+    },
     methods:{
         onClickLeft(){
             this.$router.back();

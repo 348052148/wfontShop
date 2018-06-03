@@ -16,11 +16,13 @@
                 <van-row>
 
                     <van-col v-for="goods in goodsList" span="12">
+                            <router-link :to="{ path: '/goods', query: { sku:'sku' }}" >
                             <img class="pic-url" :src="goods.pic"/>
                             <span class="pic-title">{{goods.title}}</span>
                             <span class="pic-price">￥{{goods.price}}</span>
+                            </router-link>
                     </van-col>
-
+                    
                 </van-row>
 
             </div>
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import Req from './../src/req.js';
 export default {
     data(){
         return {
@@ -61,6 +64,11 @@ export default {
                 }
             ]
         }
+    },
+    created(){
+         Req.request('/goodsList',{},(response) => {
+                this.goodsList = response.data.goodsList;
+         });
     },
     methods:{
         onClickLeft(){

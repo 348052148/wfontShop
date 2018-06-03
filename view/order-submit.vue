@@ -8,11 +8,14 @@
                 left-text="返回"
                 left-arrow
                 :fixed="true"
+                 @click-left="onClickLeft"
         />
 
+        <router-link :to="{ path: '/address-list', query: { source: 'order-submit' }}" >
         <div class="address">
             <van-cell :title="orderInfo.address.name" :value="orderInfo.address.tel" :label="'收货地址：'+orderInfo.address.address" is-link />
         </div>
+        </router-link>
 
         <van-cell title="预约送达时间" is-link value="下单后半小时"/>
         <span class="fill"></span>
@@ -21,7 +24,7 @@
         <span class="fill"></span>
 
         <ul class="goodsLst">
-            <li v-for="goods in orderInfo.goodsList">
+            <li v-for="goods in orderInfo.goodsList" >
                 <div class="pic">
                     <img style="width: 60px;height: 60px;" :src="goods.pic"/>
                 </div>
@@ -68,11 +71,18 @@
 </template>
 
 <script>
+    import Req from './../src/req.js';
     export default {
         data(){
             return {
                 isShow:false,
                 remark:'',
+                //
+                sendType:[
+                        {title:'18:30 - 19:00',type:1,time:1232321},
+                        {title:'18:30 - 19:00',type:1,time:1232321},
+                        {title:'18:30 - 19:00',type:1,time:1232321}
+                ],
                 //业务数据
                 orderInfo:{
                     address:{
@@ -80,11 +90,8 @@
                         tel:'18523922709',
                         address:'重庆市渝北区环山国际'
                     },
-                    sendType:[
-                        {title:'18:30 - 19:00',type:1,time:1232321},
-                        {title:'18:30 - 19:00',type:1,time:1232321},
-                        {title:'18:30 - 19:00',type:1,time:1232321}
-                    ],
+                    sendType:1,
+                    sendTime:0,
                     payType:1,
                     goodsList:[
                         {
@@ -120,6 +127,26 @@
                     orderCode:'JXHY10923213'
 
                 }
+            }
+        },
+        created(){
+            let goodsList = JSON.parse(this.$route.query.goodsList);
+            Req.request('/preOrder',{goodsList:goodsList},(response) => {
+                this.orderInfo = response.data.orderInfo;
+            });
+        },
+        methods:{
+            onSubmit(){
+                Req.request('/submitOrder',{orderInfo:this.orderInfo},(response) => {
+                    
+                    //pay
+                    console.log(this.orderInfo);
+                    //
+                    this.$router.push({path:'/order-list',query:{status:1}});
+                });
+            },
+            onClickLeft(){
+                this.$router.back();
             }
         }
     }

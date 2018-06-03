@@ -18,7 +18,9 @@
             </div>
 
             <div class="order">
+                 <router-link :to="{ path: '/order-list', query: { status: '0' }}">
                 <van-cell title="我的订单" icon="location" value="所有订单" is-link />
+                 </router-link>
                 <span class="DS"></span>
                 <van-row>
 
@@ -92,6 +94,7 @@
 </template>
 
 <script>
+    import Req from './../src/req.js';
     import Tabbar from './tabbar.vue';
     export default {
         components: {
@@ -112,7 +115,9 @@
             };
         },
         created(){
-
+            Req.request('/user',{},(response) => {
+                this.user = response.data.userInfo;
+            });
         }
     }
 </script>

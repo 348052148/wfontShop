@@ -13,6 +13,7 @@
                     :list="list"
                     @add="onAdd"
                     @edit="onEdit"
+                    @select="onSelect"
             />
         </div>
 
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+    import Req from './../src/req.js';
     export default {
         data() {
             return {
@@ -40,6 +42,12 @@
                 ]
             }
         },
+        created(){
+            Req.request('/addressList',{},(response) => {
+                this.list = response.data.list;
+                this.chosenAddressId = response.data.default;
+            });
+        },
 
         methods: {
             onAdd() {
@@ -47,6 +55,11 @@
             },
             onEdit(item, index) {
                 this.$router.push({path:'/address-edit',query:{id:item.id}});
+            },
+            onSelect(item, index){
+                Req.request('/setDefault',{id:item.id},(response) => {
+                    
+                });
             },
             onClickLeft(){
                 this.$router.back();

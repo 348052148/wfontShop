@@ -41,32 +41,49 @@
      is_default 	是否为默认地址 	Boolean
      */
     import areaList from './../src/areaList.js';
+    import Req from './../src/req.js';
     export default {
         data() {
             return {
                 areaList,
                 searchResult: [],
                 addressInfo:{
-                    id: '1',
-                    name: '张三',
-                    tel: '13000000000',
-                    province:'',
-                    city:'',
-                    county:'',
-                    address_detail:'浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-                    area_code:'',
-                    postal_code:'',
-                    is_default:false
+                    // id: '1',
+                    // name: '张三',
+                    // tel: '13000000000',
+                    // province:'',
+                    // city:'',
+                    // county:'',
+                    // address_detail:'浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
+                    // area_code:'',
+                    // postal_code:'',
+                    // is_default:false
                 }
+            }
+        },
+        created(){
+            console.log(this.$route);
+            if(this.$route.query.id){
+                Req.request('/address',{id:this.$route.query.id},(response) => {
+                    this.addressInfo = response.data.addressInfo;
+                });
             }
         },
 
         methods: {
             onSave(content) {
-               console.log(content);
+
+                Req.request('/saveAddress',{addressInfo:this.addressInfo},(response) => {
+                    console.log(content);
+                    this.onClickLeft();
+                });
+
             },
             onDelete(content) {
-
+                Req.request('/deleteAddress',{addressInfo:this.addressInfo},(response) => {
+                    console.log(content);
+                    this.onClickLeft();
+                });
             },
             onChangeDetail(val) {
                 if (val) {

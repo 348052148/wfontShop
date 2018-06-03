@@ -1,6 +1,13 @@
 <template>
     <div class="goods">
         <div>
+             <van-nav-bar
+                title="结算"
+                left-text="返回"
+                left-arrow
+                :fixed="true"
+                 @click-left="onClickLeft"
+            />
             <div>
                 <van-swipe :autoplay="3000">
                     <van-swipe-item v-for="pic in goodsInfo.pics">
@@ -69,8 +76,8 @@
         />
 
         <van-goods-action>
-            <van-goods-action-mini-btn icon="chat" text="客服" @click="onClickMiniBtn" />
-            <van-goods-action-mini-btn icon="cart" text="购物车" @click="onClickMiniBtn" />
+            <van-goods-action-mini-btn icon="chat" text="客服" @click="onCall" />
+            <van-goods-action-mini-btn icon="cart" text="购物车" @click="onCart" />
             <van-goods-action-big-btn text="加入购物车" @click="onClickBigBtn" />
             <van-goods-action-big-btn text="立即购买" @click="onClickBigBtn" primary />
         </van-goods-action>
@@ -79,61 +86,68 @@
 </template>
 
 <script>
+    import Req from './../src/req.js';
     export default {
         created(){
-            this.sku ={
-                tree: [
-                    {
-                        k: '规格', // skuKeyName：规格类目名称
-                        v: [
 
-                        ],
-                        k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-                    }
-                ],
-                list: [
-
-                ],
-
-                price: '24.00', // 默认价格（单位元）
-                stock_num: 227, // 商品总库存
-                collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
-                none_sku: false, // 是否无规格商品
-
-                hide_stock: false // 是否隐藏剩余库存
-            };
-
-            //
-            for (let i = 0; i < this.goodsInfo.specif.length ; i++) {
-                let specif = this.goodsInfo.specif[i];
-                this.sku.tree[0].v.push({
-                    id:specif.units,
-                    name:specif.title+'('+specif.units+')',
-                    imgUrl:specif.pic
-                });
-
-                this.sku.list.push({
-                    id:this.goodsInfo.sku,
-                    price:specif.price,
-                    s1:specif.units,
-                    stock_num:100
-                });
-            }
-
-            //
-            this.goods = {
-                // 商品标题
-                title: this.goodsInfo.title,
-                // 默认商品 sku 缩略图
-                picture: this.goodsInfo.pic
-            }
+            Req.request('/goods',{},(response) => {
+                this.goodsInfo = response.data.goodsInfo;
 
 
+                  this.sku ={
+                    tree: [
+                        {
+                            k: '规格', // skuKeyName：规格类目名称
+                            v: [
 
+                            ],
+                            k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+                        }
+                    ],
+                    list: [
+
+                    ],
+
+                    price: '24.00', // 默认价格（单位元）
+                    stock_num: 227, // 商品总库存
+                    collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
+                    none_sku: false, // 是否无规格商品
+
+                    hide_stock: false // 是否隐藏剩余库存
+                };
+
+                //
+                for (let i = 0; i < this.goodsInfo.specif.length ; i++) {
+                    let specif = this.goodsInfo.specif[i];
+                    this.sku.tree[0].v.push({
+                        id:specif.units,
+                        name:specif.title+'('+specif.units+')',
+                        imgUrl:specif.pic
+                    });
+
+                    this.sku.list.push({
+                        id:this.goodsInfo.sku,
+                        price:specif.price,
+                        s1:specif.units,
+                        stock_num:100
+                    });
+                }
+
+                //
+                this.goods = {
+                    // 商品标题
+                    title: this.goodsInfo.title,
+                    // 默认商品 sku 缩略图
+                    picture: this.goodsInfo.pic
+                }
+
+                
+            });
 
         },
         data(){
           return {
+              active:0,
               //业务数据
               goodsInfo:{
                   title: '思蕴语露面巾 （颜色随机 毛巾）',
@@ -209,9 +223,12 @@
           }
         },
         methods: {
-            onClickMiniBtn() {
+            onCall() {
                 // Toast('点击图标');
                 this.skuModel = true;
+            },
+            onCart(){
+                this.$router.push({path:'/cart',query:{}});
             },
             onClickBigBtn() {
                 // Toast('点击按钮');
@@ -219,9 +236,21 @@
             },
             addCart(skuData){
                 console.log(skuData)
+                let goods ={sku:this.goodsInfo.sku,units:this.goodsInfo.units,num:skuData.selectedNum};
+                Req.request('/addCart',{goods:goods},(response) => {
+                    this.$router.push({path:'/cart',query:{}});
+                });
             },
             buy(skuData){
                 console.log(skuData)
+                 this.$router.push({path:'/order-submit',query:{
+                     goodsList:JSON.stringify([
+                         {sku:this.goodsInfo.sku,units:this.goodsInfo.units,num:skuData.selectedNum}
+                     ])
+                 }})
+            },
+            onClickLeft(){
+                this.$router.back();
             }
         }
     }
@@ -229,7 +258,9 @@
 
 <style>
     *{padding:0;margin:0;}
-
+    .goods .van-swipe{
+        margin-top: 45px;
+    }
     .goods{
         width: 100%;
         overflow: auto;

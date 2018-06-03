@@ -8,92 +8,37 @@
         </div>
 
         <div class="cartContent">
-            <div class="cartItem">
-                <van-checkbox v-model="checked"></van-checkbox>
+
+            <div v-for="goods in cartInfo.goodsList" class="cartItem">
+                <van-checkbox @change="cacluePrice" v-model="goods.isCheck"></van-checkbox>
                 <div class="cartPic">
-                    <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
+                    <img :src="goods.pic"/>
                 </div>
 
                 <div class="cartInfo">
-                    <div class="title">为家清洁毛巾</div>
+                    <div class="title">{{goods.title}}</div>
                     <ul>
-                        <li>规格：瓶</li>
+                        <li>规格：{{goods.specifText}}</li>
                     </ul>
-                    <span class="amount">￥14</span>
+                    <span class="amount">￥{{goods.price}}</span>
                     <div class="plus">
-                        <button>-</button> <span >1</span> <button>+</button>
+                        <van-stepper @change="cacluePrice" v-model="goods.num" />
                     </div>
 
                 </div>
             </div>
 
-            <div class="cartItem">
-                <van-checkbox v-model="checked"></van-checkbox>
-                <div class="cartPic">
-                    <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                </div>
-
-                <div class="cartInfo">
-                    <div class="title">为家清洁毛巾</div>
-                    <ul>
-                        <li>规格：瓶</li>
-                    </ul>
-                    <span class="amount">￥14</span>
-                    <div class="plus">
-                        <button>-</button> <span >1</span> <button>+</button>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="cartItem">
-                <van-checkbox v-model="checked"></van-checkbox>
-                <div class="cartPic">
-                    <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                </div>
-
-                <div class="cartInfo">
-                    <div class="title">为家清洁毛巾</div>
-                    <ul>
-                        <li>规格：瓶</li>
-                    </ul>
-                    <span class="amount">￥14</span>
-                    <div class="plus">
-                        <button>-</button> <span >1</span> <button>+</button>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="cartItem">
-                <van-checkbox v-model="checked"></van-checkbox>
-                <div class="cartPic">
-                    <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
-                </div>
-
-                <div class="cartInfo">
-                    <div class="title">为家清洁毛巾</div>
-                    <ul>
-                        <li>规格：瓶</li>
-                    </ul>
-                    <span class="amount">￥14</span>
-                    <div class="plus">
-                        <button>-</button> <span >1</span> <button>+</button>
-                    </div>
-
-                </div>
-            </div>
         </div>
 
 
 
 
         <van-submit-bar
-                :price="3050"
+                :price="cartInfo.totalPrice"
                 button-text="提交订单"
                 @submit="onSubmit"
         >
-            <van-checkbox v-model="checked">全选</van-checkbox>
+            <van-checkbox @change="allchange" v-model="checked">全选</van-checkbox>
             <span slot="tip">
     您的收货地址不支持同城送, <span>修改地址</span>
   </span>
@@ -106,14 +51,47 @@
 
 <script>
     import Tabbar from './tabbar.vue';
+    import Req from './../src/req.js';
     export default {
         components: {
             Tabbar
         },
         data(){
           return {
-              checked:false
+              checked:false,
+              cartInfo:{
+                  goodsList:[
+                      {
+                          title:'为家清洁毛巾',
+                          pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                          specifText:'ping',
+                          units:1,
+                          num:1,
+                          price:14,
+                          total:14,
+                          isCheck:false,
+                      },
+                      {
+                          title:'为家清洁毛巾',
+                          pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png',
+                          specifText:'ping',
+                          units:1,
+                          num:1,
+                          price:14,
+                          total:14,
+                          isCheck:true,
+                      },
+                  ],
+                  totalPrice:2800
+              }
           }
+        },
+        created(){
+            Req.request('/cart',{},(response) => {
+                this.cartInfo = response.data.cartInfo;
+
+                this.cacluePrice();
+            });
         },
         methods: {
             onClose(clickPosition, instance) {
@@ -133,7 +111,40 @@
                 }
             },
             onSubmit(){
+                let goodsList = [];
+                this.cartInfo.goodsList.forEach(element => {
+                    if(element.isCheck){
+                        goodsList.push({
+                            sku:element.sku,
+                            units:element.units,
+                            num:element.num
+                        });
+                    }
+                });
 
+                this.$router.push({path:'/order-submit',query:{
+                    goodsList:JSON.stringify(goodsList)
+                }});
+            },
+            cacluePrice(){
+
+                let price = 0;
+
+                this.cartInfo.goodsList.forEach(element => {
+                    if(element.isCheck){
+                        price+=element.price*element.num;
+                    }
+                    
+                });
+
+                this.cartInfo.totalPrice = price*100;
+            },
+            allchange(){
+                this.cartInfo.goodsList.forEach(element => {
+                    element.isCheck = this.checked;
+                });
+
+                this.cacluePrice();
             }
         }
     }
@@ -174,6 +185,8 @@
         display: inline-block;
         font-size: 12px;
         margin-top: 1px;
+        padding-top: 5px;
+        padding-bottom: 15px;
     }
     .cartItem .van-checkbox{
         width: 10%;
@@ -214,7 +227,7 @@
         background: #eeeeee;
         margin-left: 40px;
     }
-    .cartItem .cartInfo .plus button{
+    /* .cartItem .cartInfo .plus button{
         width: 24px;
         height: 24px;
         border: none;
@@ -227,5 +240,5 @@
         text-align: center;
         border: none;
         align-items: center;
-    }
+    } */
 </style>

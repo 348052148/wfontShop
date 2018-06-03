@@ -38,6 +38,7 @@
 
 <script>
     import Tabbar from './tabbar.vue';
+    import Req from './../src/req.js';
     export default {
         components: {
             Tabbar
@@ -127,7 +128,10 @@
             };
         },
         created(){
-            this.currentData = this.items[this.index];
+            Req.request('/cat',{},(response) => {
+                this.items = response.data.cat;
+                this.currentData = this.items[this.index];
+            });
         },
         methods: {
             onItemClick(index) {
