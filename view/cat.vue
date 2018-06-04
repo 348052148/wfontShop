@@ -6,7 +6,7 @@
         <div class="category">
             <div class="leftNav">
                 <ul>
-                    <li  v-for="(item, index) in items" @click="onItemClick(index)" :class="active(index)">{{item.text}}</li>
+                    <li  v-for="(item, index) in items" @click="onItemClick(index)" :class="active(index)">{{item.title}}</li>
                 </ul>
             </div>
 

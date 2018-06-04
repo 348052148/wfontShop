@@ -22,6 +22,7 @@
         },
         created(){
           let i = this.urlIndex.indexOf(this.$route.path);
+          console.log(i);
           this.active = i;
 
         },
