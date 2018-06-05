@@ -10,22 +10,28 @@
         <div class="cartContent">
 
             <div v-for="goods in cartInfo.goodsList" class="cartItem">
-                <van-checkbox @change="cacluePrice" v-model="goods.isCheck"></van-checkbox>
-                <div class="cartPic">
-                    <img :src="goods.pic"/>
-                </div>
-
-                <div class="cartInfo">
-                    <div class="title">{{goods.title}}</div>
-                    <ul>
-                        <li>规格：{{goods.specifText}}</li>
-                    </ul>
-                    <span class="amount">￥{{goods.price}}</span>
-                    <div class="plus">
-                        <van-stepper @change="cacluePrice" v-model="goods.num" />
+                <van-cell-swipe :right-width="65" :on-close="onClose" >
+                <van-cell-group>
+                    <van-checkbox @change="cacluePrice" v-model="goods.isCheck"></van-checkbox>
+                    <div class="cartPic">
+                        <img :src="goods.pic"/>
                     </div>
 
-                </div>
+                    <div class="cartInfo">
+                        <div class="title">{{goods.title}}</div>
+                        <ul>
+                            <li>规格：{{goods.specifText}}</li>
+                        </ul>
+                        <span class="amount">￥{{goods.price}}</span>
+                        <div class="plus">
+                            <van-stepper @change="cacluePrice" v-model="goods.num" />
+                        </div>
+
+                    </div>
+                </van-cell-group>
+                <span slot="right">删除</span>
+                </van-cell-swipe>
+            
             </div>
 
         </div>
@@ -46,6 +52,7 @@
 
 
         <Tabbar/>
+        
     </div>
 </template>
 
@@ -145,6 +152,27 @@
                 });
 
                 this.cacluePrice();
+            },
+            onClose(clickPosition, instance) {
+                switch (clickPosition) {
+                    case 'left':
+                    case 'cell':
+                    case 'outside':
+                    instance.close();
+                    break;
+                    case 'right':
+                    this.$dialog.confirm({
+                        title: '标题',
+                    message: '弹窗内容'
+                    }).then(() => {
+                        console.log('CLOSE');
+                        
+                    }).catch(() => {
+                        instance.close();
+                    });
+                   
+                    break;
+                }
             }
         }
     }
@@ -185,9 +213,20 @@
         display: inline-block;
         font-size: 12px;
         margin-top: 1px;
-        padding-top: 5px;
-        padding-bottom: 15px;
     }
+    .cartItem .van-cell-group{
+        padding-bottom: 10px;
+        padding-top: 8px;
+    }
+
+    .cartItem .van-cell-swipe__right{
+        width: 65px;
+        line-height: 110px;
+        text-align: center;
+        background:#F44;
+        color: #FFF;
+    }
+
     .cartItem .van-checkbox{
         width: 10%;
         display: inline-block;

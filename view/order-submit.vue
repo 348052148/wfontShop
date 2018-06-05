@@ -17,10 +17,10 @@
         </div>
         </router-link>
 
-        <van-cell title="预约送达时间" is-link value="下单后半小时"/>
+        <van-cell title="预约送达时间" @click="sendTypeShow = true" is-link :value="sendTypeText"/>
         <span class="fill"></span>
 
-        <van-cell title="支付方式" is-link value="线上支付"/>
+        <van-cell title="支付方式" @click="payTypeShow = true" is-link :value="payTypeItems[orderInfo.payType]"/>
         <span class="fill"></span>
 
         <ul class="goodsLst">
@@ -66,6 +66,28 @@
                 button-text="提交订单"
                 @submit="onSubmit"
         />
+
+
+        <van-popup v-model="payTypeShow" position="bottom" :overlay="false">
+            <van-picker
+                    show-toolbar
+                    title="选择支付方式"
+                    :columns="payTypeItems"
+                    @confirm="payTypeConfirm"
+                    @cancel="payTypeCancel"
+            />
+        </van-popup>
+
+        <van-popup v-model="sendTypeShow" position="bottom" :overlay="false">
+            <van-picker
+                    show-toolbar
+                    title="选择支付方式"
+                    :columns="sendType"
+                    value-key="title"
+                    @confirm="sendTypeConfirm"
+                    @cancel="sendTypeCancel"
+            />
+        </van-popup>
     </div>
 
 </template>
@@ -75,8 +97,14 @@
     export default {
         data(){
             return {
+                payTypeShow:false,
+                payTypeItems:['在线支付','货到付款'],
                 isShow:false,
                 remark:'',
+
+                //
+                sendTypeShow:false,
+                sendTypeText:'下单后半小时',
                 //
                 sendType:[
                         {title:'18:30 - 19:00',type:1,time:1232321},
@@ -147,6 +175,22 @@
             },
             onClickLeft(){
                 this.$router.back();
+            },
+            payTypeConfirm(value, index){
+                this.orderInfo.payType = index;
+                this.payTypeShow = false;
+            },
+            payTypeCancel(){
+                this.payTypeShow = false;
+            },
+            sendTypeConfirm(value, index){
+                this.orderInfo.sendType = value.type;
+                this.orderInfo.sendTime = value.time;
+                this.sendTypeText = value.title;
+                this.sendTypeShow = false;
+            },
+            sendTypeCancel(){
+                this.sendTypeShow = false;
             }
         }
     }
@@ -206,7 +250,6 @@
         margin-top: 4px;
     }
     .goodsLst li .info .amount .total{
-        width: 30px;
         display: inline-block;
         font-size: 12px;
         float: right;

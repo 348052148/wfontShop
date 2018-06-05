@@ -153,7 +153,7 @@
             onLoad() {
                 setTimeout(() => {
                     for (let i = 0; i < 10; i++) {
-                        this.newGoodsList.push( {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'});
+                        //this.newGoodsList.push( {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'});
                     }
                     this.loading = false;
 
@@ -226,7 +226,8 @@
 
     }
     .section .van-col img{
-        width: 80%;
+        width: 90px;
+        height: 90px;
         display: inline-block;
     }
     .section .van-col .title {
@@ -236,6 +237,7 @@
         overflow:hidden;
         font-weight: normal;
         text-overflow:ellipsis;
+        white-space:nowrap;
     }
     .section  .van-col .amount{
         width: 100%;

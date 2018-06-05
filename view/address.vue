@@ -73,14 +73,14 @@
         methods: {
             onSave(content) {
 
-                Req.request('/saveAddress',{addressInfo:this.addressInfo},(response) => {
+                Req.request('/saveAddress',{addressInfo:content},(response) => {
                     console.log(content);
                     this.onClickLeft();
                 });
 
             },
             onDelete(content) {
-                Req.request('/deleteAddress',{addressInfo:this.addressInfo},(response) => {
+                Req.request('/deleteAddress',{id:this.addressInfo.id},(response) => {
                     console.log(content);
                     this.onClickLeft();
                 });

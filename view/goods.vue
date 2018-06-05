@@ -89,8 +89,8 @@
     import Req from './../src/req.js';
     export default {
         created(){
-
-            Req.request('/goods',{},(response) => {
+            let sku = this.$route.query.sku;
+            Req.request('/goods',{sku:sku},(response) => {
                 this.goodsInfo = response.data.goodsInfo;
 
 
@@ -235,17 +235,18 @@
                 this.skuModel = true;
             },
             addCart(skuData){
-                console.log(skuData)
-                let goods ={sku:this.goodsInfo.sku,units:this.goodsInfo.units,num:skuData.selectedNum};
+                console.log(skuData);
+                let units = skuData.selectedSkuComb.s1;
+                let goods ={sku:this.goodsInfo.sku,units:units,num:skuData.selectedNum};
                 Req.request('/addCart',{goods:goods},(response) => {
                     this.$router.push({path:'/cart',query:{}});
                 });
             },
             buy(skuData){
-                console.log(skuData)
+                let units = skuData.selectedSkuComb.s1;
                  this.$router.push({path:'/order-submit',query:{
                      goodsList:JSON.stringify([
-                         {sku:this.goodsInfo.sku,units:this.goodsInfo.units,num:skuData.selectedNum}
+                         {sku:this.goodsInfo.sku,units:units,num:skuData.selectedNum}
                      ])
                  }})
             },
