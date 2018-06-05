@@ -93,6 +93,8 @@
               loading: false,
               finished: false,
 
+              page:0,
+
               //业务数据
 
               navBarList:[
@@ -135,10 +137,10 @@
               ],
 
               newGoodsList:[
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
-                  {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
+                  // {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                  // {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                  // {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'},
+                  // {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'}
               ]
           };
         },
@@ -146,16 +148,18 @@
             Req.request('/home',{},(response) => {
                 this.navBarList = response.data.navBarList;
                 this.blocks = response.data.blocks;
-                this.newGoodsList = response.data.newGoodsList;
             });
         },
         methods: {
             onLoad() {
                 setTimeout(() => {
-                    for (let i = 0; i < 10; i++) {
-                        //this.newGoodsList.push( {sku:1,title:'统一鲜橙多',price:'2.5',pic:'http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png'});
-                    }
-                    this.loading = false;
+                    Req.request('/newGoodsList',{page:this.page},(response) => {
+                         response.data.newGoodsList.forEach((v) => {
+                             this.newGoodsList.push(v);
+                         });
+                        this.page++;
+                        this.loading = false;
+                    });
 
                     if (this.newGoodsList.length >= 40) {
                         this.finished = true;
@@ -244,5 +248,8 @@
         display: inline-block;
         color: crimson;
         text-align: center;
+    }
+    .van-list {
+        display: inline-block;
     }
 </style>
