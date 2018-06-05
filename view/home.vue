@@ -152,19 +152,16 @@
         },
         methods: {
             onLoad() {
-                setTimeout(() => {
-                    Req.request('/newGoodsList',{page:this.page},(response) => {
-                         response.data.newGoodsList.forEach((v) => {
-                             this.newGoodsList.push(v);
-                         });
-                        this.page++;
-                        this.loading = false;
-                    });
+                Req.request('/newGoodsList',{page:this.page},(response) => {
 
-                    if (this.newGoodsList.length >= 40) {
-                        this.finished = true;
-                    }
-                }, 500);
+                    if(response.data.newGoodsList.length == 0) this.finished = true;
+
+                    response.data.newGoodsList.forEach((v) => {
+                        this.newGoodsList.push(v);
+                    });
+                    this.page++;
+                    this.loading = false;
+                });
             }
         }
     }

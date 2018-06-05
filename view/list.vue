@@ -15,14 +15,22 @@
             <div class="product-list">
                 <van-row>
 
-                    <van-col v-for="goods in goodsList" span="12">
-                            <router-link :to="{ path: '/goods', query: { sku:'sku' }}" >
-                            <img class="pic-url" :src="goods.pic"/>
-                            <span class="pic-title">{{goods.title}}</span>
-                            <span class="pic-price">￥{{goods.price}}</span>
-                            </router-link>
-                    </van-col>
-                    
+                    <van-list
+                            v-model="loading"
+                            :finished="finished"
+                            @load="onLoad"
+                            :offset="10"
+                            loading-text="正在努力中"
+                    >
+
+                        <van-col v-for="goods in goodsList" span="12">
+                                <router-link :to="{ path: '/goods', query: { sku:'sku' }}" >
+                                <img class="pic-url" :src="goods.pic"/>
+                                <span class="pic-title">{{goods.title}}</span>
+                                <span class="pic-price">￥{{goods.price}}</span>
+                                </router-link>
+                        </van-col>
+                    </van-list>
                 </van-row>
 
             </div>
@@ -35,6 +43,9 @@ import Req from './../src/req.js';
 export default {
     data(){
         return {
+            loading: false,
+            finished: false,
+            page:0,
             //业务数据
             goodsList:[
                 {
@@ -66,13 +77,27 @@ export default {
         }
     },
     created(){
-         Req.request('/goodsList',{},(response) => {
+         Req.request('/goodsList',{page:this.page},(response) => {
                 this.goodsList = response.data.goodsList;
          });
+         this.page++;
     },
     methods:{
         onClickLeft(){
             this.$router.back();
+        },
+        onLoad(){
+            Req.request('/goodsList',{page:this.page},(response) => {
+
+                if(response.data.goodsList.length == 0) this.finished = true;
+
+                response.data.goodsList.forEach((v) => {
+                    this.goodsList.push(v);
+                });
+
+                this.page++;
+                this.loading = false;
+            });
         }
     }
 }
