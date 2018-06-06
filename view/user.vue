@@ -130,7 +130,7 @@
     .order .van-col{
         height: 60px;
         text-align: center;
-        font-size: 12px;
+        font-size: 14px;
     }
     .order .van-col .icon {
         margin-top: 10px;

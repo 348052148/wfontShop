@@ -165,6 +165,13 @@
         },
         methods:{
             onSubmit(){
+                if(!this.orderInfo.payType){
+                    return this.$toast.fail('未选择支付方式');
+
+                }
+                if(!this.orderInfo.address.tel || this.orderInfo.address.address){
+                    return this.$toast.fail('地址信息不全');
+                }
                 Req.request('/submitOrder',{orderInfo:this.orderInfo},(response) => {
                     
                     //pay

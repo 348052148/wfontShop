@@ -2,7 +2,7 @@
 <template>
     <div class="home">
         <div>
-            <van-search placeholder="请输入商品名称" v-model="search" />
+            <van-search placeholder="请输入商品名称" v-model="search" @search="onSearch" />
         </div>
         <div>
             <van-swipe :autoplay="3000">
@@ -152,6 +152,7 @@
         },
         methods: {
             onLoad() {
+                this.$toast.loading('加载中');
                 Req.request('/newGoodsList',{page:this.page},(response) => {
 
                     if(response.data.newGoodsList.length == 0) this.finished = true;
@@ -161,7 +162,14 @@
                     });
                     this.page++;
                     this.loading = false;
+
+                    this.$toast.clear();
                 });
+            },
+            onSearch(){
+                console.log('搜索');
+
+                this.$router.push({path:'/list',query:{keyword:this.search}});
             }
         }
     }
@@ -181,7 +189,7 @@
     .homeNav .van-col{
         height: 80px;
         text-align: center;
-        font-size: 12px;
+        font-size: 14px;
     }
     .homeNav .van-col .van-icon {
         margin-top: 20px;
@@ -195,7 +203,7 @@
         margin-top: 3px;
     }
     .section{
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
         background: #fff;
         padding-bottom: 10px;

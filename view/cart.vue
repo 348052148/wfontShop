@@ -193,7 +193,7 @@
         width: 100%;
         height: 50px;
         background: #fff;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 50px;
     }
     .cartTop .van-icon{
@@ -211,7 +211,7 @@
         background: #fff;
         width: 100%;
         display: inline-block;
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 1px;
     }
     .cartItem .van-cell-group{
@@ -253,7 +253,7 @@
         display: inline-block;
     }
     .cartItem .cartInfo ul li{
-        font-size: 12px;
+        font-size: 14px;
         display: inline-block;
 
     }

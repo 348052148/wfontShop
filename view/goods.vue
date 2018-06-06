@@ -239,7 +239,9 @@
                 let units = skuData.selectedSkuComb.s1;
                 let goods ={sku:this.goodsInfo.sku,units:units,num:skuData.selectedNum};
                 Req.request('/addCart',{goods:goods},(response) => {
-                    this.$router.push({path:'/cart',query:{}});
+                    this.$toast.success('添加成功！');
+                    this.skuModel = false;
+                    //this.$router.push({path:'/cart',query:{}});
                 });
             },
             buy(skuData){

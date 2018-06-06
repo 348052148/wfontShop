@@ -1,7 +1,7 @@
 <template>
     <div class="cat">
         <div>
-            <van-search placeholder="请输入商品名称" v-model="search" />
+            <van-search placeholder="请输入商品名称" v-model="search" @search="onSearch" />
         </div>
         <div class="category">
             <div class="leftNav">
@@ -17,7 +17,7 @@
                     <van-row>
 
                         <van-col v-for="cate in category.list" span="8">
-                            <router-link :to="{ path: '/list', query: { id: 1 }}">
+                            <router-link :to="{ path: '/list', query: { categoryId: 1 }}">
                                 <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
                                 <span class="title">{{cate.title}}</span>
                             </router-link>
@@ -143,6 +143,9 @@
                     return 'active';
 
                 return '';
+            },
+            onSearch(){
+                this.$router.push({path:'/list',query:{keyword:this.search}});
             }
         }
     }
@@ -158,13 +161,14 @@
         border-top: aliceblue solid 1px;
         display: inline-block;
         width: 100%;
-        margin-bottom: 50px;
+        height: 550px;
     }
     .category .leftNav{
         width: 25%;
-        font-size: 12px;
+        font-size: 14px;
         display: inline-block;
-
+        height: 100%;
+        margin-bottom: 50px;
     }
     .category .leftNav ul{
 
@@ -172,8 +176,8 @@
     .category .leftNav ul li{
         text-align: center;
         width: 100%;
-        height: 30px;
-        line-height: 30px;
+        height: 45px;
+        line-height: 45px;
         /*background: #eeeeee;*/
     }
 
@@ -181,14 +185,16 @@
         background: #fff;
         display: inline-block;
         width: 75%;
-        font-size: 12px;
+        font-size: 14px;
         float: right;
+        overflow: auto;
+        height: 100%;
     }
 
     .category .rightContent .van-col{
         text-align: center;
         margin-bottom: 10px;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .category .rightContent .van-col img{

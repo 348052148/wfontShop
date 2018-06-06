@@ -46,6 +46,10 @@ export default {
             loading: false,
             finished: false,
             page:0,
+
+            //
+            keyword:null,
+            categoryId:null,
             //业务数据
             goodsList:[
                 {
@@ -77,7 +81,10 @@ export default {
         }
     },
     created(){
-         Req.request('/goodsList',{page:this.page},(response) => {
+         this.keyword = this.$route.query.keyword;
+         this.categoryId = this.$route.query.categoryId;
+
+         Req.request('/goodsList',{page:this.page,keyword:this.keyword,categoryId:this.categoryId},(response) => {
                 this.goodsList = response.data.goodsList;
          });
          this.page++;
@@ -87,7 +94,8 @@ export default {
             this.$router.back();
         },
         onLoad(){
-            Req.request('/goodsList',{page:this.page},(response) => {
+            this.$toast.loading('玩命加载中');
+            Req.request('/goodsList',{page:this.page,keyword:this.keyword,categoryId:this.categoryId},(response) => {
 
                 if(response.data.goodsList.length == 0) this.finished = true;
 
@@ -97,6 +105,7 @@ export default {
 
                 this.page++;
                 this.loading = false;
+                this.$toast.clear();
             });
         }
     }
