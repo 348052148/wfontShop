@@ -156,6 +156,7 @@
     .cat {
         height: 100%;
         font-weight: normal;
+        overflow: hidden;
     }
     .category {
         border-top: aliceblue solid 1px;

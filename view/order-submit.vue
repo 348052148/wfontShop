@@ -20,7 +20,7 @@
         <van-cell title="预约送达时间" @click="sendTypeShow = true" is-link :value="sendTypeText"/>
         <span class="fill"></span>
 
-        <van-cell title="支付方式" @click="payTypeShow = true" is-link :value="payTypeItems[orderInfo.payType]"/>
+        <van-cell title="支付方式" @click="payTypeShow = true" is-link :value="payTypeText"/>
         <span class="fill"></span>
 
         <ul class="goodsLst">
@@ -73,6 +73,7 @@
                     show-toolbar
                     title="选择支付方式"
                     :columns="payTypeItems"
+                    value-key="title"
                     @confirm="payTypeConfirm"
                     @cancel="payTypeCancel"
             />
@@ -98,7 +99,8 @@
         data(){
             return {
                 payTypeShow:false,
-                payTypeItems:['在线支付','货到付款'],
+                payTypeItems:[{title:'在线支付',value:1},{title:'货到付款',value:0}],
+                payTypeText:'',
                 isShow:false,
                 remark:'',
 
@@ -158,9 +160,16 @@
             }
         },
         created(){
+
+            this.payTypeText = '线上支付';
+
             let goodsList = JSON.parse(this.$route.query.goodsList);
             Req.request('/preOrder',{goodsList:goodsList},(response) => {
+                if(response.data.code == 300){
+                    return this.$toast.fail(response.data.message);
+                }
                 this.orderInfo = response.data.orderInfo;
+                this.sendType = response.data.sendType;
             });
         },
         methods:{
@@ -169,7 +178,7 @@
                     return this.$toast.fail('未选择支付方式');
 
                 }
-                if(!this.orderInfo.address.tel || this.orderInfo.address.address){
+                if(!this.orderInfo.address.tel || !this.orderInfo.address.address){
                     return this.$toast.fail('地址信息不全');
                 }
                 Req.request('/submitOrder',{orderInfo:this.orderInfo},(response) => {
@@ -184,7 +193,8 @@
                 this.$router.back();
             },
             payTypeConfirm(value, index){
-                this.orderInfo.payType = index;
+                this.orderInfo.payType = value.value;
+                this.payTypeText = value.title;
                 this.payTypeShow = false;
             },
             payTypeCancel(){

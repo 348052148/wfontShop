@@ -8,7 +8,7 @@
                 @click-left="onClickLeft"
         />
 
-        <van-tabs v-model="active">
+        <van-tabs @click="selectStatus" v-model="active">
             <van-tab v-for="item in type_item" :title="item">
 
 
@@ -35,7 +35,13 @@
                 <div class="action">
                     <span>合计：￥{{order.price}}</span>
                     <div class="order-action" style="float:right;">
-                        <van-button type="default" size='small'>再次购买</van-button>
+
+                        <van-button v-if="order.status > 5" type="default" size='small'>再次购买</van-button>
+
+                        <van-button v-if="order.status > 1 && order.status<4" type="danger" size='small'>取消</van-button>
+
+                        <van-button v-if="order.status == 1" @click="payProcess(order.id)" :loading="payProcessLoading" type="primary" size='small'>去支付</van-button>
+
                     </div>
 
                 </div>
@@ -57,6 +63,8 @@
 export default {
     data() {
     return {
+        payProcessLoading:false,
+        status:0,
         type_item:['所有','待付款','待发货','待收货','待评价'],
         active: 0,
         orderList:[
@@ -111,13 +119,24 @@ export default {
     };
   },
     created(){
-        Req.request('/orderList',{},(response) => {
+        this.status = this.$route.query.status;
+        Req.request('/orderList',{status:this.status},(response) => {
             this.orderList = response.data.list;
         });
     },
     methods:{
         onClickLeft(){
             this.$router.back();
+        },
+        selectStatus(index,title){
+            this.status = index;
+            // this.$router.replace({path:'/order-list',query:{status:index}});
+            Req.request('/orderList',{status:this.status},(response) => {
+                this.orderList = response.data.list;
+            });
+        },
+        payProcess(id){
+            this.payProcessLoading = true;
         }
     }
 }
