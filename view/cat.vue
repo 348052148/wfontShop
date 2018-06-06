@@ -18,7 +18,7 @@
 
                         <van-col v-for="cate in category.list" span="8">
                             <router-link :to="{ path: '/list', query: { categoryId: 1 }}">
-                                <img src="http://weixin.ismbao.com/tb/80x80/upload/201805/19/1526697380869576.png"/>
+                                <img :src="cate.pic"/>
                                 <span class="title">{{cate.title}}</span>
                             </router-link>
                         </van-col>
